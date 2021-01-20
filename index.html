@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Reference Field Custom Extension</title>
+    <style>
+      #choose-button {
+        border-radius: 30px;
+        border: 1px solid #25c2a3;
+        padding: 5px 15px;
+        position: relative;
+      }
+      span {
+        color: #25c2a3;
+        cursor: pointer;
+      }
+      .mainDiv {
+        padding: 15px;
+        border-image: initial;
+        border-radius: 2px;
+        background-color: #f8fffe;
+        margin-left: 0 !important;
+        border: 1px solid #e6eced;
+        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.03);
+        overflow: hidden;
+        height: 67px;
+        width: 450px;
+      }
+      #close-button {
+        padding: 100px;
+      }
+      .titleHome {
+        color: #748590;
+      }
+      .refer-ct-name {
+        color: #a5abb8;
+      }
+      .action {
+        height: 58px;
+        padding-top: 20px;
+        float: right;
+        transform: translateY(-78%);
+      }
+    </style>
+    <link
+      href="https://unpkg.com/@contentstack/ui-extensions-sdk@2.2.0/dist/ui-extension-sdk.css"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://unpkg.com/@contentstack/ui-extensions-sdk@2.2.0/dist/ui-extension-sdk.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-1.11.1.min.js"
+      integrity="sha256-VAvG3sHdS5LqTT+5A/aeq/bZGa/Uj04xKxY8KM/w9EE="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="container">
+        <div class="description_box">
+          <div>
+            <ul id="entry-list"></ul>
+          </div>
+          <br />
+          <button id="choose-button" class="btn cs-btn-primary button">
+            <span>Select entry</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let extensionField;
+      const row = $("#entry-list");
+      let uid;
+      let authToken;
+      let selectedData = [];
+      let storedData = [];
+      let allEnv;
+
+      // fetch all home/house entries
+      async function getHomeEntries(id) {
+        return new Promise((resolve, reject) => {
+          axios({
+            url: `${extensionField.config.baseURL}v3/content_types/${extensionField.config.contentType}/entries?locale=en-us&include_publish_details=true`,
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              api_key: `${extensionField.config.apiKey}`,
+              authorization: `${extensionField.config.managementToken}`,
+            },
+          })
+            .then((result) => {
+              resolve(result.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        });
+      }
+
+      // click event handler to remove entry
+      function onClick(e) {
+        let eventId = $(e).find();
+        let deleteEntries;
+        if (selectedData.length != 0) {
+          selectedData.map((obj) => {
+            if (obj.entry_uid === eventId.context.id) {
+              deleteEntries = selectedData.indexOf(obj);
+            }
+          });
+          selectedData.splice(deleteEntries, 1);
+          $(`#${eventId.context.id}`).parent().parent().parent().remove();
+          extensionField.field.setData(selectedData);
+        } else if (storedData.length != 0) {
+          let deleteEntries;
+          storedData.map((obj) => {
+            if (obj.entry_uid === eventId.context.id) {
+              deleteEntries = storedData.indexOf(obj);
+            }
+          });
+          storedData.splice(deleteEntries, 1);
+          $(`#${eventId.context.id}`).parent().parent().parent().remove();
+          extensionField.field.setData(storedData);
+        }
+      }
+      // window pop-up event
+      $("#choose-button").on("click", function () {
+        const ref = window.open(
+          extensionField.config.windowURL,
+          "pop",
+          "width=900,left=500,height=500,menubar=no,toolbar=no,status=no"
+        );
+      });
+
+      // render entries
+      function renderHandler(data) {
+        if (data.length <= 0) {
+          $("#message-container").show();
+        }
+        if (data.length != 0) {
+          $("#message-container").hide();
+          if (Object.keys(data).length !== 0) {
+            data.map((index) => {
+              let categoryList = `<div class="col-xs-6 col-sm-4 col-md-3 mainDiv"><li><div>${index.title}</div>
+<div class="refer-ct-name">Content type:home </div>
+<div> <span class="action" id='${index.entry_uid}' onclick="onClick(${index.entry_uid})">
+								<!-- <i class="icon-close" title="Cancel"></i> -->
+                <img src="https://app.contentstack.com/static/images/remove-entry.svg">
+							</span></div>
+</li></div>`;
+              row.append(categoryList);
+            });
+          }
+        }
+      }
+
+      // handler to send data to child/pop-up window
+      function mainHandler() {
+        return new Promise(async (resolve, reject) => {
+          let windowData = [];
+          let homeEntries = await getHomeEntries();
+          let envList = allEnv;
+          let homeFilter = homeEntries.entries.filter(
+            (i) => i.person[0].uid === uid
+          );
+          homeFilter.map((index) => {
+            let nameEnv = [];
+            index.publish_details.map((newIndex) => {
+              envList.environments.filter((item) => {
+                if (item.uid === newIndex.environment) nameEnv.push(item.name);
+              });
+              return nameEnv;
+            });
+            let newObject = {
+              entry_uid: index.uid,
+              title: index.title,
+              updated_by: index.updated_by,
+              publish_detail: nameEnv,
+              checkedValue: false,
+            };
+            windowData.push(newObject);
+            resolve(windowData);
+          });
+        });
+      }
+
+      // message eventListener handler
+      async function windowEventHandler(event) {
+        if (event.data.hasOwnProperty("response")) {
+          if (event.data.response.message === "selectedEntries") {
+            selectedData = event.data.response.result;
+            if (selectedData.length !== 0) {
+              $(".mainDiv").remove();
+              renderHandler(selectedData);
+            }
+            if (selectedData.length <= 0) {
+              $(".mainDiv").remove();
+            }
+            extensionField.field.setData(selectedData);
+          } else if (event.data.response.message === "initialData") {
+            let response = await mainHandler();
+            let newURL = new URL(extensionField.config.windowURL);
+            baseUrl = newURL.protocol + "//" + newURL.hostname;
+            event.source.postMessage(
+              {
+                response: {
+                  entryResponse: response,
+                  current: selectedData ? selectedData : [],
+                },
+              },
+              baseUrl
+            );
+          }
+        }
+      }
+
+      // ContentStack UI initialize
+      $(document).ready(() => {
+        ContentstackUIExtension.init().then((extension) => {
+          extensionField = extension;
+          extensionField.window.enableAutoResizing();
+          storedData = extensionField.field.getData();
+          renderHandler(storedData);
+          extensionField.stack.getEnvironments("get").then((result) => {
+            allEnv = result;
+          });
+          extension.entry.onChange(async (event) => {
+            if (event.person.length > 0) {
+              uid = event.person[0].uid;
+            } else {
+              let empty = [];
+              selectedData = empty;
+              storedData = empty;
+              $(".mainDiv").remove();
+            }
+          });
+        });
+      });
+      window.addEventListener("message", windowEventHandler);
+    </script>
+  </body>
+</html>

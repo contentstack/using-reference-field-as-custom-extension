@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Entry Window</title>
+    <script
+      src="https://code.jquery.com/jquery-1.11.1.min.js"
+      integrity="sha256-VAvG3sHdS5LqTT+5A/aeq/bZGa/Uj04xKxY8KM/w9EE="
+      crossorigin="anonymous"
+    ></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://unpkg.com/@contentstack/ui-extensions-sdk@2.2.0/dist/ui-extension-sdk.css"
+      rel="stylesheet"
+    />
+    <style>
+      #choose {
+        border-radius: 30px;
+        border: 1px solid #25c2a3;
+        padding: 5px 15px;
+        position: relative;
+        margin: 5px;
+      }
+      span {
+        color: #25c2a3;
+        cursor: pointer;
+      }
+
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td,
+      th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      h1 {
+        padding: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Entry Details</h1>
+    <br />
+    <div>
+      <div class="cs-table clearfix">
+        <ul class="cs-table-head">
+          <li class="table-row">
+            <div class="table-cell w-10">Select</div>
+            <div class="table-cell w-20">Name</div>
+            <div class="table-cell w-20">Last Updated By</div>
+            <div class="table-cell w-40">Publish Details</div>
+          </li>
+        </ul>
+        <ul class="cs-table-body"></ul>
+        <br />
+      </div>
+      <button id="choose" class="btn cs-btn-primary button">
+        <span>Save & close</span>
+      </button>
+      <br />
+    </div>
+
+    <script>
+      let checkedArray = [];
+      window.onload = () => {
+        
+        //checkbox selection handler 
+        function selectionHandler(event) {
+          event.data.response.entryResponse.map((index) => {
+            let checkVal;
+            if (event.data.response.hasOwnProperty("current")) {
+              checkVal = event.data.response.current.find(
+                (i) => i.entry_uid === index.entry_uid
+              );
+              checkedArray.push(checkVal);
+              if (
+                checkVal === undefined &&
+                event.data.response.current.length <= 0
+              ) {
+              } else if (
+                checkVal != undefined &&
+                event.data.response.current.length != 0
+              ) {
+                if (
+                  event.data.response.current.length ===
+                  event.data.response.entryResponse.length
+                ) {
+                  $(".selectAll").prop("checked", true);
+                } else if (
+                  event.data.response.current.length !==
+                  event.data.response.entryResponse.length
+                ) {
+                  $(".selectAll").prop("checked", false);
+                }
+              }
+            }
+
+            let string =
+              index.publish_detail.length != 0
+                ? index.publish_detail.join(",")
+                : "Not Published";
+            $(".cs-table-body").show();
+            $(".cs-table-body").append(`<li id=${
+              index.entry_uid
+            } class="table-row"><div class="table-cell w-10"><input type="checkbox" ${
+              checkVal ? "checked" : null
+            } class="check"/></div><div class="table-cell w-20">${index.title}
+                                     </div><div class="table-cell w-20">${
+                                       index.updated_by
+                                     }</div><div class="table-cell w-40"><span>${string}</span></div></li>
+                                    `);
+          });
+        }
+
+        $("body").on("click", ".selectAll", function () {
+          $("input:checkbox").not(this).prop("checked", this.checked);
+        });
+        
+        $("#choose").on("click change", () => {
+          let values = new Array();
+          $.each($(".check:checked"), function (event) {
+            var data = $(this).parents("li");
+            values.push({
+              entry_uid: data[0].id,
+              title: $(data).find("div:eq(1)").text(),
+              updated_by: $(data).find("div:eq(2)").text(),
+              publish_detail: $(data).find("div:eq(3)").text(),
+              checkedValue: data.context.checked,
+            });
+          });
+          checkedArray = values;
+          window.opener.postMessage(
+            {
+              response: {
+                message: "selectedEntries",
+                result: checkedArray,
+              },
+            },
+            "*"
+          );
+          window.close();
+        });
+        window;
+        window.addEventListener("message", selectionHandler);
+
+        $(document).ready(() => {
+          setTimeout(() => {
+            window.opener.postMessage(
+              {
+                response: {
+                  message: "initialData",
+                },
+              },
+              "*"
+            );
+          }, 200);
+        });
+      };
+    </script>
+  </body>
+</html>

@@ -65,6 +65,7 @@
             <ul id="entry-list"></ul>
           </div>
           <br />
+          <div id="message-id">No entry selected</div>
           <button id="choose-button" class="btn cs-btn-primary button">
             <span>Select entry</span>
           </button>
@@ -138,10 +139,10 @@
       // render entries
       function renderHandler(data) {
         if (data.length <= 0) {
-          $("#message-container").show();
+          $("#message-id").show();
         }
         if (data.length != 0) {
-          $("#message-container").hide();
+          $("#message-id").hide();
           if (Object.keys(data).length !== 0) {
             data.map((index) => {
               let categoryList = `<div class="col-xs-6 col-sm-4 col-md-3 mainDiv">

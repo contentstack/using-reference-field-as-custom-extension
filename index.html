@@ -145,13 +145,18 @@
           $("#message-container").hide();
           if (Object.keys(data).length !== 0) {
             data.map((index) => {
-              let categoryList = `<div class="col-xs-6 col-sm-4 col-md-3 mainDiv"><li><div>${index.title}</div>
-<div class="refer-ct-name">Content type:home </div>
-<div> <span class="action" id='${index.entry_uid}' onclick="onClick(${index.entry_uid})">
-								<!-- <i class="icon-close" title="Cancel"></i> -->
-                <img src="https://app.contentstack.com/static/images/remove-entry.svg">
-							</span></div>
-</li></div>`;
+              let categoryList = `<div class="col-xs-6 col-sm-4 col-md-3 mainDiv">
+                                    <li>
+                                      <div>${index.title}
+                                      </div>
+                                          <div class="refer-ct-name">Content type:home </div>
+                                        <div> 
+                                          <span class="action" id='${index.entry_uid}' onclick="onClick(${index.entry_uid})">
+                                            <img src="https://app.contentstack.com/static/images/remove-entry.svg">
+                                          </span>
+                                        </div>
+                                    </li>
+                                  </div>`;
               row.append(categoryList);
             });
           }

@@ -2,6 +2,8 @@
 
 # Using Reference Field As Custom Extension
 
+Contentstack is a headless CMS with an API-first approach. It is a CMS that developers can use to build powerful cross-platform applications in their favourite languages. Build your application frontend, and Contentstack will take care of the rest. Read More.
+
 #### About this extension
 
 yet to update readme

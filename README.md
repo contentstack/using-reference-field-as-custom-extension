@@ -2,17 +2,16 @@
 
 # Using Reference Field As Custom Extension
 
-Contentstack is a headless CMS with an API-first approach. It is a CMS that developers can use to build powerful cross-platform applications in their favourite languages. Build your application frontend, and Contentstack will take care of the rest. Read More.
+Contentstack provides a custom fields extension which allows users to add/ use customized fields in the content-type. Using reference fields as custom extension users can fetch entries from other content types and use them in the custom fields.
+In this example, we will create relations between content types using reference fields. This will allow users to render and access entries of other content types.
 
-#### About this extension
+# Tutorial
 
-yet to update readme
+We have created a detailed tutorial on how to use Reference Field as Custom Extension. Follow the steps mentioned in the guide and set up the required reference custom field.
 
-#### How to use this extension
-JSON Editor is available as a prebuilt template that you can use instantly. Login to your Contentstack account, add it into your stack, and start using it.
+Example image:
 
-Learn how to [add a prebuilt extension](http://www.contentstack.com/docs/guide/extensions/json-editor-extension-setup-guide) to your stack.  
 
-#### Other Documentation
+# Other Documentation
 - [Extensions guide](https://www.contentstack.com/docs/guide/extensions)
-- [Common questions about extensions](https://www.contentstack.com/docs/faqs#extensions)
+- [Read Guide](https://www.contentstack.com/docs/faqs#extensions)

@@ -8,8 +8,6 @@ Contentstack is a headless CMS with an API-first approach. It is a CMS that deve
 
 yet to update readme
 
-![JSON Editor Screenshot]()
-
 #### How to use this extension
 JSON Editor is available as a prebuilt template that you can use instantly. Login to your Contentstack account, add it into your stack, and start using it.
 

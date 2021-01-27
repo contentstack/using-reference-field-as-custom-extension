@@ -12,6 +12,8 @@ We have created a detailed tutorial on how to use Reference Field as Custom Exte
 
 Example image:
 
+![image](https://user-images.githubusercontent.com/29656920/105963830-7a254580-60a7-11eb-8bf8-05cf5124407f.png)
+
 
 ## Other Documentation
 - [Extensions guide](https://www.contentstack.com/docs/guide/extensions)

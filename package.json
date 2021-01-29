@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npx gulp build",
-    "lint": "eslint --fix --ext .js,.jsx ."
+    "lint": "eslint --fix --ext .js ."
   },
   "devDependencies": {
     "eslint": "7.15.0",

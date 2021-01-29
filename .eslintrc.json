@@ -1,0 +1,27 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jquery": true
+  },
+  "extends": "airbnb-base/legacy",
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-restricted-syntax": ["error", "LabeledStatement", "WithStatement"],
+    "no-prototype-builtins": 0,
+    "no-restricted-globals": 0,
+    "no-async-promise-executor": 0,
+    "no-unused-vars": 0,
+    "no-empty": 0,
+    "no-param-reassign": 0,
+    "max-len": 0,
+    "no-array-constructor": 0,
+    "no-use-before-define": 0,
+    "no-undef": 0,
+    "no-console": 0,
+    "array-callback-return": 0
+  }
+}

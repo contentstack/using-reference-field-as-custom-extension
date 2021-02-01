@@ -1,36 +1,50 @@
 // pop-up window js file
 
-let checkedArray = [];
 window.onload = () => {
-  // checkbox selection handler
+  // selection handler
   function selectionHandler(event) {
-    event.data.response.entryResponse.map((index) => {
-      let checkVal;
-      if (event.data.response.hasOwnProperty('current')) {
-        checkVal = event.data.response.current.find((i) => i.entry_uid === index.entry_uid);
-        checkedArray.push(checkVal);
-        if (checkVal === undefined && event.data.response.current.length <= 0) {
-        } else if (checkVal !== undefined && event.data.response.current.length !== 0) {
-          if (event.data.response.current.length === event.data.response.entryResponse.length) {
-            $('.selectAll').prop('checked', true);
-          } else if (event.data.response.current.length !== event.data.response.entryResponse.length) {
-            $('.selectAll').prop('checked', false);
+    if (event.data.response.current.length <= 0) {
+      event.data.response.entryResponse.map((index) => {
+        let string = index.publish_detail.length !== 0 ? index.publish_detail.join(',') : 'Not Published';
+        $('.cs-table-body').show();
+        $('.cs-table-body').append(`<li id=${index.entry_uid} class="table-row">
+                                              <div class="table-cell w-10">
+                                                <input type="checkbox" class="check"/>
+                                              </div>
+                                                <div class="table-cell w-20">${index.title}</div>
+                                                <div class="table-cell w-20">${index.updated_by}</div>
+                                                <div class="table-cell w-40"><span>${string}</span></div>
+                                            </li>
+                                      `);
+      });
+    }
+    if (event.data.response.current.length !== 0) {
+      let updatedArray = [];
+      for (let i = 0, lengthOne = event.data.response.current.length; i < lengthOne; i++) {
+        for (let j = 0, lengthTwo = event.data.response.entryResponse.length; j < lengthTwo; j++) {
+          if (event.data.response.current[i].entry_uid === event.data.response.entryResponse[j].entry_uid) {
+            event.data.response.entryResponse.splice(j, 1);
+            lengthTwo = event.data.response.entryResponse;
+            updatedArray = lengthTwo;
           }
         }
       }
-
-      let string = index.publish_detail.length !== 0 ? index.publish_detail.join(',') : 'Not Published';
-      $('.cs-table-body').show();
-      $('.cs-table-body').append(`<li id=${index.entry_uid} class="table-row">
-                                            <div class="table-cell w-10">
-                                              <input type="checkbox" ${checkVal ? 'checked' : null} class="check"/>
-                                            </div>
-                                              <div class="table-cell w-20">${index.title}</div>
-                                              <div class="table-cell w-20">${index.updated_by}</div>
-                                              <div class="table-cell w-40"><span>${string}</span></div>
-                                          </li>
-                                    `);
-    });
+      if (updatedArray.length !== 0) {
+        updatedArray.map((index) => {
+          let string = index.publish_detail.length !== 0 ? index.publish_detail.join(',') : 'Not Published';
+          $('.cs-table-body').show();
+          $('.cs-table-body').append(`<li id=${index.entry_uid} class="table-row">
+                                              <div class="table-cell w-10">
+                                                <input type="checkbox" class="check"/>
+                                              </div>
+                                                <div class="table-cell w-20">${index.title}</div>
+                                                <div class="table-cell w-20">${index.updated_by}</div>
+                                                <div class="table-cell w-40"><span>${string}</span></div>
+                                            </li>
+                                      `);
+        });
+      }
+    }
   }
 
   $('body').on('click', '.selectAll', function () {
@@ -49,12 +63,11 @@ window.onload = () => {
         checkedValue: data.context.checked
       });
     });
-    checkedArray = values;
     window.opener.postMessage(
       {
         response: {
           message: 'selectedEntries',
-          result: checkedArray
+          result: values
         }
       },
       '*'

@@ -3,7 +3,6 @@ let extensionField;
 const row = $('#entry-list');
 let uid;
 let selectedData = [];
-let storedData = [];
 let allEnv;
 let baseUrl;
 
@@ -42,16 +41,6 @@ function onClick(e) {
     $(`#${eventId.context.id}`).parent().parent().parent()
       .remove();
     extensionField.field.setData(selectedData);
-  } else if (storedData.length !== 0) {
-    storedData.map((obj) => {
-      if (obj.entry_uid === eventId.context.id) {
-        deleteEntries = storedData.indexOf(obj);
-      }
-    });
-    storedData.splice(deleteEntries, 1);
-    $(`#${eventId.context.id}`).parent().parent().parent()
-      .remove();
-    extensionField.field.setData(storedData);
   }
 }
 // window pop-up event
@@ -118,7 +107,7 @@ function handler() {
 async function windowEventHandler(event) {
   if (event.data.hasOwnProperty('response')) {
     if (event.data.response.message === 'selectedEntries') {
-      selectedData = event.data.response.result;
+      event.data.response.result.map((i) => selectedData.push(i));
       if (selectedData.length !== 0) {
         $('.mainDiv').remove();
         renderHandler(selectedData);
@@ -149,8 +138,8 @@ $(document).ready(() => {
   ContentstackUIExtension.init().then((extension) => {
     extensionField = extension;
     extensionField.window.enableAutoResizing();
-    storedData = extensionField.field.getData();
-    renderHandler(storedData);
+    selectedData = extensionField.field.getData();
+    renderHandler(selectedData);
     extensionField.stack.getEnvironments('get').then((result) => {
       allEnv = result;
     });
@@ -160,9 +149,8 @@ $(document).ready(() => {
       } else {
         let empty = [];
         selectedData = empty;
-        storedData = empty;
         $('.mainDiv').remove();
-        extensionField.field.setData(storedData);
+        extensionField.field.setData(selectedData);
       }
     });
   });

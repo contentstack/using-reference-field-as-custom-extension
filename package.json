@@ -1,7 +1,7 @@
 {
   "name": "using-reference-field-as-custom-extension",
   "version": "1.0.0",
-  "description": "This is an example extension to demonstrate  reference field custom extension.",
+  "description": "This is an example extension to demonstrate reference field as a custom extension.",
   "main": "index.js",
   "scripts": {
     "build": "npx gulp build",

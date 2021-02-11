@@ -17,4 +17,5 @@ Example image:
 
 ## Other Documentation
 - [Extensions guide](https://www.contentstack.com/docs/guide/extensions)
-- [Read Guide](https://www.contentstack.com/docs/faqs#extensions)
+
+- [Using Reference Field As Custom Extension](https://www.contentstack.com/docs/developers/how-to-guides/using-reference-field-as-custom-extension/)

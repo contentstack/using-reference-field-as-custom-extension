@@ -16,6 +16,6 @@ Example image:
 
 
 ## Documentation
-- Read Doc[Doc](https://www.contentstack.com/docs/guide/extensions)
+- Read Contentstack [Documentation](https://www.contentstack.com/docs/)
 
 - Read Guide [Using Reference Field As Custom Extension](https://www.contentstack.com/docs/developers/how-to-guides/using-reference-field-as-custom-extension/)

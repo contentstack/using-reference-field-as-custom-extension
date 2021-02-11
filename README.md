@@ -15,7 +15,7 @@ Example image:
 ![image](https://user-images.githubusercontent.com/29656920/105963830-7a254580-60a7-11eb-8bf8-05cf5124407f.png)
 
 
-## Other Documentation
-- [Extensions guide](https://www.contentstack.com/docs/guide/extensions)
+## Documentation
+- Read Doc[Doc](https://www.contentstack.com/docs/guide/extensions)
 
-- [Using Reference Field As Custom Extension](https://www.contentstack.com/docs/developers/how-to-guides/using-reference-field-as-custom-extension/)
+- Read Guide [Using Reference Field As Custom Extension](https://www.contentstack.com/docs/developers/how-to-guides/using-reference-field-as-custom-extension/)

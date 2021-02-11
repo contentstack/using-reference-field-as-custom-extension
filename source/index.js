@@ -133,7 +133,7 @@ async function windowEventHandler(event) {
   }
 }
 
-// ContentStack UI initialize
+// Contentstack UI initialize
 $(document).ready(() => {
   ContentstackUIExtension.init().then((extension) => {
     extensionField = extension;

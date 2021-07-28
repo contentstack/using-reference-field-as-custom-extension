@@ -1,21 +1,29 @@
-[![Contentstack](https://www.contentstack.com/docs/static/images/contentstack.png)](https://www.contentstack.com/)
+# Reference Field – Contentstack Extension 
 
-# Using Reference Field As Custom Extension
-
-Contentstack provides a custom fields extension which allows users to add/use customized fields in the content-type. Using reference fields as custom extension users can fetch entries from other content types and use them in the custom fields.
-
-In this example, we will discuss the steps required to use reference fields as custom extension. This will allow us to render and access entries of other content types.
-
-## Tutorial
-
-We have created a detailed tutorial on how to use Reference Field as Custom Extension. Follow the steps mentioned in the guide and set up the required reference custom field.
-
-Example image:
-
-![image](https://user-images.githubusercontent.com/29656920/105963830-7a254580-60a7-11eb-8bf8-05cf5124407f.png)
+#### About this extension
 
 
-## Documentation
-- Read Contentstack [Documentation](https://www.contentstack.com/docs/)
+![Reference Field gif]()
 
-- Read Guide [Using Reference Field As Custom Extension](https://www.contentstack.com/docs/developers/how-to-guides/using-reference-field-as-custom-extension/)
+
+#### How to use this extension
+We have created a step-by-step guide on how to create a Reference Field extension for your content types. You can refer the [Reference Field extension guide]() on our documentation site for more info. 
+
+
+#### Other Documentation
+- [Extensions guide](https://www.contentstack.com/docs/guide/extensions)
+- [Common questions about extensions](https://www.contentstack.com/docs/faqs#extensions)
+
+
+#### Modifying Extension
+
+To modify the extension, first clone this repo and install the dependencies in both the react apps. Then, edit the files as required, and create a build for both the apps.
+
+To install dependencies, run the following command in the <b>/reference-field</b> and <b>/reference-field-popup</b> folder
+```
+npm install
+```
+To create new build, run the following command in the <b>/reference-field</b> and <b>/reference-field-popup</b> folder
+
+    npm run build
+

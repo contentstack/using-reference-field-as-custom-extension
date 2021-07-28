@@ -1,0 +1,271 @@
+@font-face {
+  font-family: 'proximaNovaRegular';
+  src: url('https://litmus.com/fonts/Emails/proximanova-regular-webfont.eot');
+  src:
+    url('https://litmus.com/fonts/Emails/proximanova-regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('https://litmus.com/fonts/Emails/proximanova-regular-webfont.woff') format('woff'),
+    url('https://litmus.com/fonts/Emails/proximanova-regular-webfont.ttf') format('truetype'),
+    url('https://litmus.com/fonts/Emails/proximanova-regular-webfont.svg#proxima_nova_rgregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* CSS RESET */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-weight: 500;
+  font-family: 'proximaNovaRegular', Arial, Helvetica, sans-serif;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote::before, blockquote::after, q::before, q::after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/** CSS RESET END **/
+
+body {
+  overflow: hidden;
+}
+
+.wrapper {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.wrapper .container {
+  padding: 15px 0;
+}
+
+.selected-reference-count {
+  position: relative;
+  text-align: right;
+  padding-right: 20px;
+  width: 56%;
+  font-size: 13px;
+}
+
+.row {
+  margin-right: 0;
+  margin-left: 0;
+  margin-top: 4px;
+}
+
+.selected-list ul {
+  width: 56%;
+  max-height: 275px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-left: 5px;
+}
+
+.selected-list ul li {
+  margin-bottom: 15px;
+  margin-left: 0;
+  padding-right: 20px;
+}
+
+.selected-list .file {
+  position: relative;
+  background: #f5feff;
+  border: 1px solid #e6eced;
+  -webkit-border-radius: 0 2px 0 2px;
+  -moz-border-radius: 0 2px;
+  border-radius: 0 2px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  overflow: hidden;
+  height: 60px;
+}
+
+.selected-list .entry-ref {
+  padding: 0 0 0 13px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(100% - 71px);
+  display: inline-block;
+  font-size: 13px;
+}
+
+.selected-list .content-type {
+  color: #aabac4;
+  margin: 0;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+.selected-list .content-type span {
+  color: #748690;
+}
+
+.selected-list .ref-action {
+  float: right;
+  position: relative;
+  height: 60px;
+}
+
+.selected-list .ref-action span {
+  height: 58px;
+  padding-top: 20px;
+  text-align: center;
+  background: 0 0;
+  border-left: 1px solid #E6ECEE;
+  padding: 18px 10px 10px 12px;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  right: 0;
+}
+
+.choose_btn {
+  background: #fff;
+  border: 1px solid #25c2a3;
+  border-radius: 24px;
+  color: #25c2a3 !important;
+  font-size: 14px;
+  line-height: 1.42857143;
+  text-align: center;
+  text-decoration: none;
+  width: 120px;
+  outline: none;
+  cursor: pointer;
+  padding: 5px;
+  float: left;
+}
+
+.choose_btn:focus {
+  outline: 0;
+}
+
+/* Scrollbar Styling */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background: #dfe2e9;
+}
+
+/*Dragula CSS*/
+
+.gu-mirror {
+  list-style: none;
+  position: fixed!important;
+  z-index: 9999!important;
+  opacity: 0.9;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+  margin-bottom: 15px;
+  padding-left: 15px;
+  margin-left: 0;
+  padding-right: 20px;
+}
+
+.gu-mirror .file {
+  position: relative;
+  background: #f5feff;
+  border: 1px solid #e6eced;
+  -webkit-border-radius: 0 2px 0 2px;
+  -moz-border-radius: 0 2px;
+  border-radius: 0 2px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  overflow: hidden;
+  height: 60px;
+}
+
+.gu-mirror .entry-ref {
+  padding: 0 0 0 13px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(100% - 71px);
+  display: inline-block;
+  font-size: 13px;
+}
+
+.gu-mirror .content-type {
+  color: #aabac4;
+  margin: 0;
+  font-size: 12px;
+}
+
+.gu-mirror .content-type span {
+  color: #748690;
+}
+
+.gu-mirror .ref-action {
+  float: right;
+  position: relative;
+  height: 60px;
+}
+
+.gu-mirror .ref-action span {
+  height: 58px;
+  padding-top: 20px;
+  text-align: center;
+  background: 0 0;
+  border-left: 1px solid #E6ECEE;
+  padding: 18px 10px 10px 12px;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  right: 0;
+}
+
+.gu-hide {
+  display: none!important
+}
+
+.gu-unselectable {
+  -webkit-user-select: none!important;
+  -moz-user-select: none!important;
+  -ms-user-select: none!important;
+  user-select: none!important
+}
+
+.gu-transit {
+  border: 2px dashed #063a52;
+  background: #F0F9FF;
+  opacity: 0.2;
+  margin-left: 5px;
+}
+
+.gu-transit .file {
+  opacity: 0;
+}
